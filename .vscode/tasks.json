@@ -1,0 +1,88 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "docker: compose up monkeyocr-demo@gpu-online",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/MonkeyOCR/docker/"
+            },
+            "command": [
+                "docker compose -p monkey up monkeyocr-demo",
+            ]
+        },
+        {
+            "label": "docker: compose build monkeyocr-fix@latest",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/MonkeyOCR/docker/"
+            },
+            "command": "docker compose build monkeyocr-fix",
+        },
+        {
+            "label": "conda: flash-attention install",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}",
+            },
+            "command": [
+                // "conda run -n monkey pip install flash-attn==2.7.4.post1 --no-build-isolation",
+                "bash whl/install_flash_attn.sh",
+            ]
+        },
+        {
+            "label": "conda: lmdeploy_patcher restore",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}",
+            },
+            "command": [
+                "conda run -n monkey python MonkeyOCR/tools/lmdeploy_patcher.py restore",
+            ]
+        },
+        {
+            "label": "conda: lmdeploy_patcher patch",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}",
+            },
+            "command": [
+                "conda run -n monkey python MonkeyOCR/tools/lmdeploy_patcher.py patch",
+            ]
+        },
+        {
+            "label": "conda: wget download pdf",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "command": [
+                "mkdir -p ./pdf",
+                "&& conda run --no-capture-output -n monkey wget --show-progress https://arxiv.org/pdf/2304.03442v2 -O ./pdf/2304.03442v2.pdf",
+                "&& conda run --no-capture-output -n monkey wget --show-progress https://arxiv.org/pdf/2202.11027 -O ./pdf/2202.11027.pdf"
+            ]
+        },
+        {
+            "label": "huggingface-cli: download models",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    // "HF_ENDPOINT": "https://hf-mirror.com",
+                    // "HF_HUB_ETAG_TIMEOUT": "1000",
+                    // "HF_HUB_DOWNLOAD_TIMEOUT": "1000"
+                }
+            },
+            "command": [
+                "huggingface-cli download echo840/MonkeyOCR --local-dir ./model_weight",
+            ]
+        },
+        {
+            "label": "conda: create env",
+            "type": "shell",
+            "command": [
+                "conda env create -f ./environment.yml"
+            ]
+        }
+    ]
+}
