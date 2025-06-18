@@ -1,0 +1,68 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "debugpy: demo_gradio",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/MonkeyOCR/demo/demo_gradio.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false
+        },
+        {
+            "name": "debugpy: parse lmdeploy+doclayout_yolo@cuda",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/MonkeyOCR/parse.py",
+            "console": "integratedTerminal",
+            "args": [
+                "${workspaceFolder}/pdf/2304.03442v2.pdf",
+                "-c",
+                "${workspaceFolder}/config/lmdeploy+doclayout_yolo@cuda.yaml"
+            ],
+            "justMyCode": false
+        },
+        {
+            "name": "debugpy: parse lmdeploy+layout_zh@cuda",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/MonkeyOCR/parse.py",
+            "console": "integratedTerminal",
+            "args": [
+                "${workspaceFolder}/pdf/2202.11027.pdf",
+                "-c",
+                "${workspaceFolder}/config/lmdeploy+layout_zh@cuda.yaml"
+            ],
+            "justMyCode": false
+        },
+        {
+            "name": "debugpy: parse transformers+doclayout_yolo@cuda",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/MonkeyOCR/parse.py",
+            "console": "integratedTerminal",
+            "args": [
+                "${workspaceFolder}/pdf/2304.03442v2.pdf",
+                "-c",
+                "${workspaceFolder}/config/transformers+doclayout_yolo@cuda.yaml"
+            ],
+            "justMyCode": false,
+            "preLaunchTask": "conda: flash-attention install"
+        },
+        {
+            "name": "debugpy: parse transformers+layout_zh@cuda",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/MonkeyOCR/parse.py",
+            "console": "integratedTerminal",
+            "args": [
+                "${workspaceFolder}/pdf/2202.11027.pdf",
+                "-c",
+                "${workspaceFolder}/config/transformers+layout_zh@cuda.yaml"
+            ],
+            "justMyCode": false,
+            "preLaunchTask": "conda: flash-attention install"
+        }
+    ]
+}
