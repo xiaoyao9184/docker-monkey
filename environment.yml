@@ -1,0 +1,28 @@
+name: monkey
+channels:
+  - conda-forge
+  - pytorch
+  - nvidia
+dependencies:
+  - python=3.11
+
+  - conda-forge::wget
+
+  - pytorch::pytorch==2.5.1
+  - pytorch::pytorch-cuda==12.4
+  - pytorch::torchvision==0.20.1
+  - pytorch::torchaudio==2.5.1
+
+  # transformers backend need
+  # - conda-forge::flash-attn==2.7.4
+
+  - conda-forge::poppler
+
+  - pip:
+    - -e ./MonkeyOCR
+    - gradio==5.23.3
+    - pdf2image==1.17.0
+    # Ultralytics YOLO need
+    - dill==0.4.0
+    # transformers backend need
+    # - flash-attn==2.7.4.post1
